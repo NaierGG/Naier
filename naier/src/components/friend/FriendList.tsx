@@ -4,12 +4,14 @@ interface FriendListProps {
   friends: FriendListItem[]
   selectedFriendId: string | null
   onSelectFriend: (id: string) => void
+  onRemoveFriend?: (id: string) => void
 }
 
 export default function FriendList({
   friends,
   selectedFriendId,
   onSelectFriend,
+  onRemoveFriend,
 }: FriendListProps) {
   if (friends.length === 0) {
     return (
@@ -31,6 +33,7 @@ export default function FriendList({
           friend={friend}
           isSelected={selectedFriendId === friend.id}
           onClick={() => onSelectFriend(friend.id)}
+          onRemove={onRemoveFriend}
         />
       ))}
     </div>

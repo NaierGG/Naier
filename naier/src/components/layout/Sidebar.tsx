@@ -12,6 +12,7 @@ interface SidebarProps {
   isMobile?: boolean
   onSearchQueryChange: (value: string) => void
   onSelectFriend: (friendId: string) => void
+  onRemoveFriend: (friendId: string) => void
   onOpenAddFriend: () => void
   onOpenRelays: () => void
   onOpenSettings: () => void
@@ -34,6 +35,7 @@ export default function Sidebar({
   isMobile = false,
   onSearchQueryChange,
   onSelectFriend,
+  onRemoveFriend,
   onOpenAddFriend,
   onOpenRelays,
   onOpenSettings,
@@ -80,6 +82,7 @@ export default function Sidebar({
           friends={friends}
           selectedFriendId={selectedFriendId}
           onSelectFriend={onSelectFriend}
+          onRemoveFriend={onRemoveFriend}
         />
       </div>
 

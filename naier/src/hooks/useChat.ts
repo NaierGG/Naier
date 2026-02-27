@@ -112,19 +112,27 @@ export default function useChat({ pool, relays, keys, onError }: UseChatParams):
 
       const myPubkey = keys.publicKey
       const myPrivkeyHex = keys.privateKeyHex
-      const filter = {
-        authors: [peerPubkey, myPubkey],
-        kinds: [4],
-        '#p': [myPubkey, peerPubkey],
-        limit: 400,
-      }
+      const filters = [
+        {
+          authors: [peerPubkey],
+          kinds: [4],
+          '#p': [myPubkey],
+          limit: 200,
+        },
+        {
+          authors: [myPubkey],
+          kinds: [4],
+          '#p': [peerPubkey],
+          limit: 200,
+        },
+      ]
 
       const seenIds = new Set<string>()
       const buffer: Message[] = []
       let eoseReceived = false
       const currentSession = sessionRef.current
 
-      const sub = pool.subscribeMany(relays, filter, {
+      const sub = pool.subscribeMany(relays, filters as any, {
         onevent: async (event) => {
           if (currentSession !== sessionRef.current) {
             return
@@ -142,6 +150,7 @@ export default function useChat({ pool, relays, keys, onError }: UseChatParams):
             event.pubkey === myPubkey &&
             event.tags.some((tag) => tag[0] === 'p' && tag[1] === peerPubkey)
 
+          // Secondary guard to drop any event outside the expected DM direction.
           if (!directedToMe && !directedToPeer) {
             return
           }
