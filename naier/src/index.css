@@ -1,0 +1,88 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: 255 255 255;
+  --bg-sidebar: 244 244 245;
+  --bg-bubble-mine: 42 171 238;
+  --bg-bubble-peer: 255 255 255;
+  --text-primary: 17 24 39;
+  --text-secondary: 107 114 128;
+  --border: 229 231 235;
+  --accent: 42 171 238;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: 28 28 30;
+    --bg-sidebar: 44 44 46;
+    --bg-bubble-mine: 42 171 238;
+    --bg-bubble-peer: 58 58 60;
+    --text-primary: 249 250 251;
+    --text-secondary: 156 163 175;
+    --border: 63 63 70;
+    --accent: 42 171 238;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    @apply bg-bg-primary text-text-primary antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.message-slide-in {
+  animation: slideIn 0.15s ease-out;
+}
+
+.modal-pop-in {
+  animation: modalPopIn 0.2s ease-out;
+}
+
+.toast-slide-in {
+  animation: toastIn 0.2s ease-out;
+}
